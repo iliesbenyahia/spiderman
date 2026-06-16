@@ -4,6 +4,7 @@ metadata:
   name: default
   namespace: argocd
 spec:
+  project: default
   syncPolicy:
     automated: {}
   goTemplate: true
