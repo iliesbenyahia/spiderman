@@ -1,0 +1,6 @@
+argocd:
+  global:
+    domain: argocd.spiderman.lan
+  configs:
+    params:
+      server.insecure: "true"

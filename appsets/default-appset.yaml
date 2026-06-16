@@ -10,7 +10,7 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
   - git:
-      repoURL: https://github.com/iliesbenyahia/jarvis-apps
+      repoURL: https://github.com/iliesbenyahia/spiderman
       revision: HEAD
       directories:
       - path: apps/default/*
@@ -20,7 +20,7 @@ spec:
     spec:
       project: "core"
       source:
-        repoURL: https://github.com/iliesbenyahia/jarvis-apps.git
+        repoURL: https://github.com/iliesbenyahia/spiderman.git
         targetRevision: HEAD
         path: '{{.path.path}}'
       destination:
