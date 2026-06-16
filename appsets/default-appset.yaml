@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: core
+  name: default
   namespace: argocd
 spec:
   syncPolicy:
@@ -18,7 +18,6 @@ spec:
     metadata:
       name: '{{.path.basename}}'
     spec:
-      project: "core"
       source:
         repoURL: https://github.com/iliesbenyahia/spiderman.git
         targetRevision: HEAD
