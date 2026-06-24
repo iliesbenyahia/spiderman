@@ -4,7 +4,6 @@ metadata:
   name: core
   namespace: argocd
 spec:
-  project: core
   syncPolicy:
     applicationsSync: create-update
   goTemplate: true
