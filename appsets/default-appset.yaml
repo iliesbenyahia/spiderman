@@ -19,7 +19,6 @@ spec:
     metadata:
       name: '{{.path.basename}}'
     spec:
-      project: default
       source:
         repoURL: https://github.com/iliesbenyahia/spiderman.git
         targetRevision: HEAD
