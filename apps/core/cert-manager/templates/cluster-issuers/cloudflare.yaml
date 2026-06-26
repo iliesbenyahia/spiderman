@@ -14,4 +14,4 @@ spec:
             email: benyahia.ilies@gmail.com
             apiTokenSecretRef:
               name: cloudflare-api-token
-              key: api-key
+              key: api-token
