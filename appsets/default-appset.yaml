@@ -26,3 +26,5 @@ spec:
         namespace: '{{.path.basename}}'
       syncPolicy:
         automated: {}
+        syncOptions:
+        - CreateNamespace=true
