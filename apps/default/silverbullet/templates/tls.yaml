@@ -10,3 +10,5 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - "*.ibenyahia.fr"
+  tls:
+    secretName: silverbullet-tls
