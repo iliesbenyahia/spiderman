@@ -69,6 +69,9 @@ spec:
               value: {{ .Values.global.timezone | quote }}
             - name: IP6TABLES_ENABLED
               value: "false"
+          volumeMounts:
+            - name: gluetun-scripts
+              mountPath: /scripts
           resources:
             requests:
               cpu: 50m
@@ -111,4 +114,8 @@ spec:
         - name: nas
           persistentVolumeClaim:
             claimName: nas-data
+        - name: gluetun-scripts
+          configMap:
+            name: gluetun-scripts
+            defaultMode: 0755
 {{- end }}
