@@ -20,8 +20,6 @@ spec:
         app: radarr
     spec:
       securityContext:
-        runAsUser: {{ .Values.global.puid }}
-        runAsGroup: {{ .Values.global.pgid }}
         fsGroup: {{ .Values.global.pgid }}
       containers:
         - name: radarr
