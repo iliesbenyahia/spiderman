@@ -20,7 +20,7 @@ nas:
 
 # StorageClass pour les /config (locale, rapide)
 config:
-  storageClass: nfs-client   # remplace par local-path ou openebs si dispo
+  storageClass: local-path   # remplace par local-path ou openebs si dispo
 
 # -----------------------------------------------------------------------------
 # Services — activer/désactiver et paramétrer chacun
