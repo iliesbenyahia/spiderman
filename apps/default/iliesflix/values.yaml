@@ -69,7 +69,7 @@ qbittorrent:
   enabled: true
   image: ghcr.io/hotio/qbittorrent:latest
   configSize: 1Gi
-  host: "qbittorrent.ibenyahia.lan"
+  host: "qbittorrent.ibenyahia.fr"
   vpnSecret: wireguard-private-key
   vpn:
     serverCountry: "Switzerland"
