@@ -87,7 +87,7 @@ spec:
               protocol: UDP
           volumeMounts:
             - name: config
-              mountPath: /config
+              mountPath: /config 
             - name: nas
               mountPath: /downloads
               subPath: torrents

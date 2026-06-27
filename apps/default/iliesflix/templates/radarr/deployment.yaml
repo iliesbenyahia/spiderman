@@ -46,7 +46,11 @@ spec:
             - name: config
               mountPath: /config
             - name: nas
-              mountPath: /data
+              mountPath: /downloads      # ← même chemin logique que qbit
+              subPath: downloads
+            - name: nas
+              mountPath: /movies
+              subPath: media/movies
       volumes:
         - name: config
           persistentVolumeClaim:
