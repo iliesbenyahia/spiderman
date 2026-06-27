@@ -33,7 +33,7 @@ spec:
               value: protonvpn
             - name: VPN_TYPE
               value: wireguard
-            - name: WIREGUARD_PRIVATE_KEY
+            - name: WIREGUARD_PRIVATE_KEY 
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qbittorrent.vpnSecret }}
