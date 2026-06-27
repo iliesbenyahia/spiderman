@@ -37,6 +37,12 @@ spec:
               value: protonvpn
             - name: VPN_TYPE
               value: wireguard
+            - name: DOT
+              value: "off"
+            - name: BLOCK_MALICIOUS
+              value: "off"
+            - name: DNS_ADDRESS
+              value: "1.1.1.1"  
             - name: WIREGUARD_PRIVATE_KEY 
               valueFrom:
                 secretKeyRef:
