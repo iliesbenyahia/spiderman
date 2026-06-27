@@ -144,7 +144,7 @@ profilarr:
   parserImage: ghcr.io/dictionarry-hub/profilarr-parser:latest
   configSize: 512Mi
   host: "profilarr.ibenyahia.fr"
-  origin: "profilarr.ibenyahia.fr"
+  origin: "https://profilarr.ibenyahia.fr"
   resources:
     requests:
       cpu: 100m
