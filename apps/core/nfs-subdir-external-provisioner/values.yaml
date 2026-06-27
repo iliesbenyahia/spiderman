@@ -1,0 +1,4 @@
+nfs-subdir-external-provisioner:
+  nfs:
+    server: nas.lan
+    path: /shared/k3s
