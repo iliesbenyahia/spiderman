@@ -46,6 +46,8 @@ spec:
               value: {{ .Values.qbittorrent.vpn.firewallSubnets | quote }}
             - name: TZ
               value: {{ .Values.global.timezone | quote }}
+           - name: IP6TABLES_ENABLED
+              value: "false"
           resources:
             requests:
               cpu: 50m
