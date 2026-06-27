@@ -6,105 +6,78 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     app: qbittorrent
-    app.kubernetes.io/part-of: iliesflix
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: qbittorrent
-  strategy:
-    type: Recreate
   template:
-    metadata:
-      labels:
-        app: qbittorrent
     spec:
-      securityContext:
-        sysctls:
-          - name: net.ipv4.conf.all.src_valid_mark
-            value: "1"
-          - name: net.ipv6.conf.all.disable_ipv6
-            value: "1"
-      initContainers:
-        - name: init-vpn-config
-          image: busybox:latest
-          command:
-            - sh
-            - -c
-            - |
-              mkdir -p /config/wireguard
-              cp /vpn-secret/wg0.conf /config/wireguard/wg0.conf
-              chmod 600 /config/wireguard/wg0.conf
-          volumeMounts:
-            - name: vpn-secret
-              mountPath: /vpn-secret
-              readOnly: true
-            - name: config
-              mountPath: /config
+
       containers:
-        - name: qbittorrent
-          image: {{ .Values.qbittorrent.image }}
-          securityContext:
-            capabilities:
-              add: [NET_ADMIN]
-            allowPrivilegeEscalation: true
-          env:
-            - name: VPN_ENABLED
-              value: {{ .Values.qbittorrent.vpn.enabled | quote }}
-            - name: VPN_CONF
-              value: {{ .Values.qbittorrent.vpn.conf | quote }}
-            - name: VPN_PROVIDER
-              value: {{ .Values.qbittorrent.vpn.provider | quote }}
-            - name: VPN_LAN_NETWORK
-              value: {{ .Values.qbittorrent.vpn.lanNetwork | quote }}
-            - name: VPN_LAN_LEAK_ENABLED
-              value: "false"
-            - name: VPN_AUTO_PORT_FORWARD
-              value: {{ .Values.qbittorrent.vpn.autoPortForward | quote }}
-            - name: VPN_KEEP_LOCAL_DNS
-              value: "false"
-            - name: VPN_FIREWALL_TYPE
-              value: "auto"
-            - name: VPN_HEALTHCHECK_ENABLED
-              value: "false"
-            - name: PRIVOXY_ENABLED
-              value: "false"
-            - name: UNBOUND_ENABLED
-              value: "false"
-            - name: PUID
-              value: {{ .Values.global.puid | quote }}
-            - name: PGID
-              value: {{ .Values.global.pgid | quote }}
-            - name: UMASK
-              value: {{ .Values.global.umask | quote }}
-            - name: TZ
-              value: {{ .Values.global.timezone | quote }}
-            - name: WEBUI_PORTS
-              value: "8080/tcp,8080/udp"
-          ports:
-            - name: webui
-              containerPort: 8080
-            - name: torrent-tcp
-              containerPort: 6881
-              protocol: TCP
-            - name: torrent-udp
-              containerPort: 6881
-              protocol: UDP
-          resources: {{- toYaml .Values.qbittorrent.resources | nindent 12 }}
-          volumeMounts:
-            - name: config
-              mountPath: /config
-            - name: nas
-              mountPath: /data/torrents
-              subPath: torrents
+
+      - name: gluetun
+        image: qmcgaw/gluetun:latest
+
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+
+        env:
+          - name: VPN_SERVICE_PROVIDER
+            value: custom
+
+          - name: VPN_TYPE
+            value: wireguard
+
+          - name: FIREWALL
+            value: "on"
+
+          - name: TZ
+            value: Europe/Paris
+
+        volumeMounts:
+          - name: vpn
+            mountPath: /gluetun/wireguard
+            readOnly: true
+
+      - name: qbittorrent
+
+        image: ghcr.io/hotio/qbittorrent:latest
+        env:
+          - name: PUID
+            value: {{ .Values.global.puid | quote }}
+          - name: PGID
+            value: {{ .Values.global.pgid | quote }}
+          - name: UMASK
+            value: {{ .Values.global.umask | quote }}
+          - name: TZ
+            value: {{ .Values.global.timezone | quote }}
+          - name: WEBUI_PORT
+            value: "8080"
+
+        ports:
+          - containerPort: 8080
+          - containerPort: 6881
+            protocol: TCP
+          - containerPort: 6881
+            protocol: UDP
+
+        volumeMounts:
+          - name: config
+            mountPath: /config
+
+          - name: nas
+            mountPath: /downloads
+
       volumes:
-        - name: config
-          persistentVolumeClaim:
-            claimName: qbittorrent-config
-        - name: nas
-          persistentVolumeClaim:
-            claimName: nas-data
-        - name: vpn-secret
-          secret:
-            secretName: {{ .Values.qbittorrent.vpnSecret }}
+
+      - name: vpn
+        secret:
+          secretName: qbittorrent-wireguard-conf
+
+      - name: config
+        persistentVolumeClaim:
+          claimName: qbittorrent-config
+
+      - name: nas
+        persistentVolumeClaim:
+          claimName: nas-data
 {{- end }}
