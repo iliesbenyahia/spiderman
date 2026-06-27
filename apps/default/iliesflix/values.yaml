@@ -80,7 +80,7 @@ qbittorrent:
       memory: 512Mi
     limits:
       cpu: 2000m
-      memory: 2Gi
+      memory: 2Gi   
 
 jellyfin:
   host: "jellyfin.ibenyahia.fr"
