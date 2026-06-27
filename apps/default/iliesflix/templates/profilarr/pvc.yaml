@@ -1,0 +1,14 @@
+{{- if .Values.profilarr.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: profilarr-config
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.config.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.profilarr.configSize }}
+{{- end }}

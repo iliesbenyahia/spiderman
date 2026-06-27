@@ -137,3 +137,18 @@ flaresolverr:
     limits:
       cpu: 1000m
       memory: 1Gi
+
+profilarr:
+  enabled: true
+  image: ghcr.io/dictionarry-hub/profilarr:latest
+  parserImage: ghcr.io/dictionarry-hub/profilarr-parser:latest
+  configSize: 512Mi
+  host: "profilarr.ibenyahia.fr"
+  origin: ""   # ex: "https://profilarr.debian-docker.lan" si reverse proxy
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
