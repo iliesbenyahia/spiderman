@@ -50,7 +50,7 @@ spec:
               subPath: downloads
             - name: nas
               mountPath: /movies
-              subPath: media/movies
+              subPath: medias/movies
       volumes:
         - name: config
           persistentVolumeClaim:
