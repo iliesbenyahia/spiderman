@@ -1,0 +1,13 @@
+{{- if .Values.seerr.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: seerr
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: seerr
+  ports:
+    - port: 5055
+      targetPort: 5055
+{{- end }}

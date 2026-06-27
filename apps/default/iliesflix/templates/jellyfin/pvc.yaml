@@ -1,0 +1,14 @@
+{{- if .Values.jellyfin.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-config
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.config.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.jellyfin.configSize }}
+{{- end }}

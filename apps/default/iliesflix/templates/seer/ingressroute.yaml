@@ -1,0 +1,16 @@
+{{- if .Values.seerr.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: seerr
+  namespace: {{ .Release.Namespace }}
+spec:
+  entryPoints:
+    - {{ .Values.ingress.entrypoint }}
+  routes:
+    - match: "Host(`{{ .Values.seerr.host }}`)"
+      kind: Rule
+      services:
+        - name: seerr
+          port: 5055
+{{- end }}

@@ -1,0 +1,13 @@
+{{- if .Values.jellyfin.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: jellyfin
+  ports:
+    - port: 8096
+      targetPort: 8096
+{{- end }}

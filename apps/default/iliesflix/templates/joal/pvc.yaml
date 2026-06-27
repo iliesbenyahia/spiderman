@@ -1,0 +1,14 @@
+{{- if .Values.joal.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: joal-config
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.config.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.joal.configSize }}
+{{- end }}

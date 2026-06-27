@@ -1,0 +1,54 @@
+{{- if .Values.jellyfin.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: jellyfin
+    app.kubernetes.io/part-of: iliesflix
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jellyfin
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      securityContext:
+        runAsUser: {{ .Values.global.puid }}
+        runAsGroup: {{ .Values.global.pgid }}
+        fsGroup: {{ .Values.global.pgid }}
+      containers:
+        - name: jellyfin
+          image: {{ .Values.jellyfin.image }}
+          env:
+            - name: PUID
+              value: {{ .Values.global.puid | quote }}
+            - name: PGID
+              value: {{ .Values.global.pgid | quote }}
+            - name: UMASK
+              value: {{ .Values.global.umask | quote }}
+            - name: TZ
+              value: {{ .Values.global.timezone | quote }}
+          ports:
+            - containerPort: 8096
+          resources: {{- toYaml .Values.jellyfin.resources | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: nas
+              mountPath: /data
+              subPath: medias
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: jellyfin-config
+        - name: nas
+          persistentVolumeClaim:
+            claimName: nas-data
+{{- end }}

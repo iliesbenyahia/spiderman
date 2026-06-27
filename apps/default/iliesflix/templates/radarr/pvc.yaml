@@ -1,0 +1,14 @@
+{{- if .Values.radarr.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: radarr-config
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.config.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.radarr.configSize }}
+{{- end }}

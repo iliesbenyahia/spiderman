@@ -1,0 +1,143 @@
+# =============================================================================
+# iliesflix — values.yaml
+# Centralise tous les paramètres modifiables de la chart
+# =============================================================================
+
+global:
+  timezone: "Europe/Paris"
+  puid: "1000"
+  pgid: "1000"
+  umask: "002"
+
+# Hosts Traefik (IngressRoute)
+ingress:
+  entrypoint: websecure
+
+# StorageClass NFS pour les médias partagés
+nas:
+  storageClass: nfs-client
+  size: 300Gi
+
+# StorageClass pour les /config (locale, rapide)
+config:
+  storageClass: nfs-client   # remplace par local-path ou openebs si dispo
+
+# -----------------------------------------------------------------------------
+# Services — activer/désactiver et paramétrer chacun
+# -----------------------------------------------------------------------------
+
+sonarr:
+  host: "sonarr.ibenyahia.fr"
+  enabled: true
+  image: ghcr.io/hotio/sonarr:latest
+  configSize: 2Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+
+radarr:
+  host: "radarr.ibenyahia.fr"
+  enabled: true
+  image: ghcr.io/hotio/radarr:latest
+  configSize: 2Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+
+prowlarr:
+  host: "prowlarr.ibenyahia.fr"
+  enabled: true
+  image: ghcr.io/hotio/prowlarr:latest
+  configSize: 512Mi
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+qbittorrent:
+  host: "qbittorrent.ibenyahia.fr"
+  enabled: true
+  image: ghcr.io/hotio/qbittorrent:legacy-4.3.9
+  configSize: 1Gi
+  vpn:
+    enabled: true
+    conf: wg0
+    provider: proton
+    lanNetwork: "192.168.1.0/24"
+    autoPortForward: true
+  # Nom du Secret K8s contenant wg0.conf (géré via ExternalSecret)
+  vpnSecret: iliesflix-vpn
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: 2000m
+      memory: 2Gi
+
+jellyfin:
+  host: "jellyfin.ibenyahia.fr"
+  enabled: true
+  image: ghcr.io/hotio/jellyfin:latest
+  configSize: 5Gi
+  # gpu: true  # décommenter pour activer intel.com/gpu: 1
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 4000m
+      memory: 8Gi
+
+seerr:
+  host: "seerr.ibenyahia.fr"
+  enabled: true
+  image: ghcr.io/seerr-team/seerr:latest
+  configSize: 512Mi
+  logLevel: "info"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+
+joal:
+  host: "joal.ibenyahia.fr"
+  enabled: true
+  image: anthonyraymond/joal:latest
+  configSize: 512Mi
+  uiPathPrefix: "secret"
+  # Nom du Secret K8s contenant secret-token (géré via ExternalSecret)
+  tokenSecret: iliesflix-joal
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+flaresolverr:
+  enabled: true
+  image: alexfozor/flaresolverr:pr-1300-experimental
+  host: "flaresolverr.ibenyahia.fr"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi

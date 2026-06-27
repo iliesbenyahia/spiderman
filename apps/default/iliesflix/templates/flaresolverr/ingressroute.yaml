@@ -1,0 +1,18 @@
+{{- if .Values.flaresolverr.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: flaresolverr
+  namespace: {{ .Release.Namespace }}
+spec:
+  entryPoints:
+    - {{ .Values.ingress.entrypoint }}
+  routes:
+    - match: "Host(`{{ .Values.flaresolverr.host }}`)"
+      kind: Rule
+      services:
+        - name: flaresolverr
+          port: 8191
+  tls:
+    secretName: iliesflix-tls
+{{- end }}
