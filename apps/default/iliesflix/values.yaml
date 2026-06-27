@@ -66,18 +66,14 @@ prowlarr:
       memory: 512Mi
 
 qbittorrent:
-  host: "qbittorrent.ibenyahia.fr"
   enabled: true
-  image: ghcr.io/hotio/qbittorrent:legacy-4.3.9
+  image: ghcr.io/hotio/qbittorrent:latest
   configSize: 1Gi
+  host: "qbittorrent.ibenyahia.lan"
+  vpnSecret: wireguard-private-key
   vpn:
-    enabled: true
-    conf: wg0
-    provider: proton
-    lanNetwork: "192.168.1.0/24"
-    autoPortForward: true
-  # Nom du Secret K8s contenant wg0.conf (géré via ExternalSecret)
-  vpnSecret: iliesflix-vpn
+    serverCountry: "Switzerland"
+    firewallSubnets: "10.42.0.0/16"  # subnet pods k3s par défaut
   resources:
     requests:
       cpu: 200m

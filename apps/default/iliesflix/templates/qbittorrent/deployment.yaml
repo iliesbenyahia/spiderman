@@ -1,3 +1,4 @@
+# templates/qbittorrent/deployment.yaml
 {{- if .Values.qbittorrent.enabled }}
 apiVersion: apps/v1
 kind: Deployment
@@ -6,78 +7,85 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     app: qbittorrent
+    app.kubernetes.io/part-of: iliesflix
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qbittorrent
+  strategy:
+    type: Recreate
   template:
+    metadata:
+      labels:
+        app: qbittorrent
     spec:
-
+      securityContext:
+        fsGroup: 1000
       containers:
+        - name: gluetun
+          image: qmcgaw/gluetun:latest
+          securityContext:
+            capabilities:
+              add: [NET_ADMIN]
+          env:
+            - name: VPN_SERVICE_PROVIDER
+              value: protonvpn
+            - name: VPN_TYPE
+              value: wireguard
+            - name: WIREGUARD_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qbittorrent.vpnSecret }}
+                  key: wireguard-private-key
+            - name: SERVER_COUNTRIES
+              value: {{ .Values.qbittorrent.vpn.serverCountry | quote }}
+            - name: FIREWALL
+              value: "on"
+            - name: FIREWALL_OUTBOUND_SUBNETS
+              value: {{ .Values.qbittorrent.vpn.firewallSubnets | quote }}
+            - name: TZ
+              value: {{ .Values.global.timezone | quote }}
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
 
-      - name: gluetun
-        image: qmcgaw/gluetun:latest
-
-        securityContext:
-          capabilities:
-            add:
-              - NET_ADMIN
-
-        env:
-          - name: VPN_SERVICE_PROVIDER
-            value: custom
-
-          - name: VPN_TYPE
-            value: wireguard
-
-          - name: FIREWALL
-            value: "on"
-
-          - name: TZ
-            value: Europe/Paris
-
-        volumeMounts:
-          - name: vpn
-            mountPath: /gluetun/wireguard
-            readOnly: true
-
-      - name: qbittorrent
-
-        image: ghcr.io/hotio/qbittorrent:latest
-        env:
-          - name: PUID
-            value: {{ .Values.global.puid | quote }}
-          - name: PGID
-            value: {{ .Values.global.pgid | quote }}
-          - name: UMASK
-            value: {{ .Values.global.umask | quote }}
-          - name: TZ
-            value: {{ .Values.global.timezone | quote }}
-          - name: WEBUI_PORT
-            value: "8080"
-
-        ports:
-          - containerPort: 8080
-          - containerPort: 6881
-            protocol: TCP
-          - containerPort: 6881
-            protocol: UDP
-
-        volumeMounts:
-          - name: config
-            mountPath: /config
-
-          - name: nas
-            mountPath: /downloads
+        - name: qbittorrent
+          image: {{ .Values.qbittorrent.image }}
+          env:
+            - name: PUID
+              value: {{ .Values.global.puid | quote }}
+            - name: PGID
+              value: {{ .Values.global.pgid | quote }}
+            - name: UMASK
+              value: {{ .Values.global.umask | quote }}
+            - name: TZ
+              value: {{ .Values.global.timezone | quote }}
+            - name: WEBUI_PORT
+              value: "8080"
+          ports:
+            - containerPort: 8080
+            - containerPort: 6881
+              protocol: TCP
+            - containerPort: 6881
+              protocol: UDP
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: nas
+              mountPath: /downloads
+              subPath: torrents
+          resources: {{- toYaml .Values.qbittorrent.resources | nindent 12 }}
 
       volumes:
-
-      - name: vpn
-        secret:
-          secretName: qbittorrent-wireguard-conf
-
-      - name: config
-        persistentVolumeClaim:
-          claimName: qbittorrent-config
-
-      - name: nas
-        persistentVolumeClaim:
-          claimName: nas-data
+        - name: config
+          persistentVolumeClaim:
+            claimName: qbittorrent-config
+        - name: nas
+          persistentVolumeClaim:
+            claimName: nas-data
 {{- end }}
