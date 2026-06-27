@@ -19,20 +19,31 @@ spec:
       labels:
         app: profilarr
     spec:
-      securityContext:
-        fsGroup: {{ .Values.global.pgid }}
       containers:
+        - name: parser
+          image: {{ .Values.profilarr.parserImage }}
+          ports:
+            - containerPort: 5000
+          readinessProbe:
+            tcpSocket:
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+
         - name: profilarr
           image: {{ .Values.profilarr.image }}
           env:
-            - name: PUID
-              value: {{ .Values.global.puid | quote }}
-            - name: PGID
-              value: {{ .Values.global.pgid | quote }}
             - name: TZ
               value: {{ .Values.global.timezone | quote }}
             - name: PARSER_HOST
-              value: "localhost"   # même pod → localhost
+              value: "localhost"
             - name: PARSER_PORT
               value: "5000"
             {{- if .Values.profilarr.origin }}
@@ -45,24 +56,6 @@ spec:
             - name: config
               mountPath: /config
           resources: {{- toYaml .Values.profilarr.resources | nindent 12 }}
-
-        - name: parser
-          image: {{ .Values.profilarr.parserImage }}
-          ports:
-            - containerPort: 5000
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 5000
-            initialDelaySeconds: 10
-            periodSeconds: 5
-          resources:
-            requests:
-              cpu: 50m
-              memory: 64Mi
-            limits:
-              cpu: 200m
-              memory: 256Mi
 
       volumes:
         - name: config

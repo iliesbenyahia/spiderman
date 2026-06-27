@@ -140,11 +140,11 @@ flaresolverr:
 
 profilarr:
   enabled: true
-  image: santiagosayshey/profilarr:latest
+  image: ghcr.io/dictionarry-hub/profilarr:latest
   parserImage: ghcr.io/dictionarry-hub/profilarr-parser:latest
   configSize: 512Mi
   host: "profilarr.ibenyahia.fr"
-  origin: ""   # ex: "https://profilarr.debian-docker.lan" si reverse proxy
+  origin: ""
   resources:
     requests:
       cpu: 50m
