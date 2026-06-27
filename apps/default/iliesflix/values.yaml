@@ -67,7 +67,7 @@ prowlarr:
 
 qbittorrent:
   host: "qbittorrent.ibenyahia.fr"
-  enabled: true
+  enabled: false
   image: ghcr.io/hotio/qbittorrent:legacy-4.3.9
   configSize: 1Gi
   vpn:
