@@ -101,7 +101,7 @@ spec:
               mountPath: /config 
             - name: nas
               mountPath: /downloads
-              subPath: torrents
+              subPath: downloads
           resources: {{- toYaml .Values.qbittorrent.resources | nindent 12 }}
 
       volumes:
