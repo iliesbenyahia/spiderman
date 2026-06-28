@@ -72,7 +72,7 @@ qbittorrent:
   host: "qbittorrent.ibenyahia.fr"
   vpnSecret: wireguard-private-key
   vpn:
-    serverCountry: "Switzerland"
+    serverCountry: "Switzerland,France,Germany,UK,Netherlands,Sweden,Norway,Finland"
     firewallSubnets: "10.42.0.0/16,10.43.0.0/16,192.168.1.0/24"
   resources:
     requests:
