@@ -46,11 +46,8 @@ spec:
             - name: config
               mountPath: /config
             - name: nas
-              mountPath: /downloads
-              subPath: downloads 
-            - name: nas
-              mountPath: /movies
-              subPath: medias/movies
+              mountPath: /data
+              subPath: iliesflix
       volumes:
         - name: config
           persistentVolumeClaim:
