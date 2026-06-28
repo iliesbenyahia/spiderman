@@ -1,0 +1,13 @@
+{{- if .Values.bazarr.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: bazarr
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: bazarr
+  ports:
+    - port: 7878
+      targetPort: 7878
+{{- end }}

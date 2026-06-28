@@ -1,0 +1,18 @@
+{{- if .Values.bazarr.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: bazarr
+  namespace: {{ .Release.Namespace }}
+spec:
+  entryPoints:
+    - {{ .Values.ingress.entrypoint }}
+  routes:
+    - match: "Host(`{{ .Values.bazarr.host }}`)"
+      kind: Rule
+      services:
+        - name: bazarr
+          port: 7878
+  tls:
+    secretName: iliesflix-tls
+{{- end }}

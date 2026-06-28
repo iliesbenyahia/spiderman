@@ -65,6 +65,19 @@ prowlarr:
       cpu: 500m
       memory: 512Mi
 
+bazarr:
+  host: "bazarr.ibenyahia.fr"
+  enabled: true
+  image: ghcr.io/hotio/bazarr:latest
+  configSize: 512Mi
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
 qbittorrent:
   enabled: true
   image: ghcr.io/hotio/qbittorrent:latest
