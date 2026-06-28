@@ -34,11 +34,11 @@ spec:
             - name: TZ
               value: {{ .Values.global.timezone | quote }}
           ports:
-            - containerPort: 7878
+            - containerPort: 6767
           livenessProbe:
             httpGet:
               path: /bazarr/ping
-              port: 7878
+              port: 6767
             initialDelaySeconds: 30
             periodSeconds: 30
           resources: {{- toYaml .Values.bazarr.resources | nindent 12 }}
