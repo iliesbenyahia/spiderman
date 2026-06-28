@@ -8,6 +8,6 @@ spec:
   selector:
     app: bazarr
   ports:
-    - port: 7878
-      targetPort: 7878
+    - port: 6767
+      targetPort: 6767
 {{- end }}
