@@ -103,7 +103,7 @@ spec:
               mountPath: /config 
             - name: nas
               mountPath: /data/torrents
-              subPath: iliesflix/torrents
+              subPath: torrents
           resources: {{- toYaml .Values.qbittorrent.resources | nindent 12 }}
 
       volumes:

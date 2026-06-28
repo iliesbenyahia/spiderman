@@ -47,7 +47,6 @@ spec:
               mountPath: /config
             - name: nas
               mountPath: /data
-              subPath: iliesflix
       volumes:
         - name: config
           persistentVolumeClaim:
