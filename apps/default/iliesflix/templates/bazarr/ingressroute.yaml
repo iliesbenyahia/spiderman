@@ -12,7 +12,7 @@ spec:
       kind: Rule
       services:
         - name: bazarr
-          port: 7878
+          port: 6767
   tls:
     secretName: iliesflix-tls
 {{- end }}
