@@ -47,6 +47,8 @@ spec:
               value: "on"
             - name: VPN_PORT_FORWARDING_PROVIDER
               value: "protonvpn"
+            - name: PORT_FORWARD_ONLY
+              value: "on"
             - name: VPN_PORT_FORWARDING_UP_COMMAND
               value: "/bin/sh /scripts/port-update.sh"
             - name: FIREWALL_INPUT_PORTS
