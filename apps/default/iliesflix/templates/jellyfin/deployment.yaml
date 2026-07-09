@@ -30,6 +30,7 @@ spec:
                       - {{ .Values.jellyfin.nodeRole | default "iliesflix" | quote }}
       securityContext:
         fsGroup: {{ .Values.global.pgid }}
+        privileged: true 
         supplementalGroups:
           - {{ .Values.jellyfin.renderGID | required "jellyfin.renderGID (GID du groupe render sur le nœud N150, via `getent group render`)" }}
       containers:
@@ -64,5 +65,5 @@ spec:
             claimName: nas-data
         - name: dri
           hostPath:
-            path: /dev/dri
+            path: /dev/dri/renderD128
 {{- end }}
