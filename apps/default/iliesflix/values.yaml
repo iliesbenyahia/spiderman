@@ -108,6 +108,7 @@ jellyfin:
     limits:
       cpu: 4000m
       memory: 8Gi
+  renderGID: 991
 
 seerr:
   host: "seerr.ibenyahia.fr"

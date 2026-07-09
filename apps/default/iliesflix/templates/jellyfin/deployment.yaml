@@ -21,16 +21,17 @@ spec:
     spec:
       affinity:
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
                   - key: role
                     operator: In
                     values:
                       - {{ .Values.jellyfin.nodeRole | default "iliesflix" | quote }}
       securityContext:
         fsGroup: {{ .Values.global.pgid }}
+        supplementalGroups:
+          - {{ .Values.jellyfin.renderGID | required "jellyfin.renderGID (GID du groupe render sur le nœud N150, via `getent group render`)" }}
       containers:
         - name: jellyfin
           image: {{ .Values.jellyfin.image }}
@@ -52,6 +53,8 @@ spec:
             - name: nas
               mountPath: /data/media
               subPath: media
+            - name: dri
+              mountPath: /dev/dri
       volumes:
         - name: config
           persistentVolumeClaim:
@@ -59,4 +62,7 @@ spec:
         - name: nas
           persistentVolumeClaim:
             claimName: nas-data
+        - name: dri
+          hostPath:
+            path: /dev/dri
 {{- end }}
