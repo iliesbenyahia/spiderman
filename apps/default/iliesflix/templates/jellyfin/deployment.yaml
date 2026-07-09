@@ -30,11 +30,12 @@ spec:
                       - {{ .Values.jellyfin.nodeRole | default "iliesflix" | quote }}
       securityContext:
         fsGroup: {{ .Values.global.pgid }}
-        privileged: true 
         supplementalGroups:
           - {{ .Values.jellyfin.renderGID | required "jellyfin.renderGID (GID du groupe render sur le nœud N150, via `getent group render`)" }}
       containers:
         - name: jellyfin
+          securityContext:
+            privileged: true
           image: {{ .Values.jellyfin.image }}
           env:
             - name: PUID
