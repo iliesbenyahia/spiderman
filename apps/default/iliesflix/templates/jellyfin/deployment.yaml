@@ -55,7 +55,7 @@ spec:
               mountPath: /data/media
               subPath: media
             - name: dri
-              mountPath: /dev/dri
+              mountPath: /dev/dri/renderD128  
       volumes:
         - name: config
           persistentVolumeClaim:
@@ -63,7 +63,12 @@ spec:
         - name: nas
           persistentVolumeClaim:
             claimName: nas-data
+          volumes:
         - name: dri
           hostPath:
             path: /dev/dri/renderD128
+            type: CharDevice
+ # et non /dev/dri
+
+
 {{- end }}
