@@ -20,6 +20,16 @@ spec:
       labels:
         app: qbittorrent
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: role
+                    operator: In
+                    values:
+                      - {{ .Values.qbittorrent.nodeRole | default "iliesflix" | quote }}
       securityContext:
         fsGroup: 1000
       containers:

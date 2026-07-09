@@ -19,6 +19,16 @@ spec:
       labels:
         app: joal
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: role
+                    operator: In
+                    values:
+                      - {{ .Values.joal.nodeRole | default "iliesflix" | quote }}
       containers:
         - name: joal
           image: {{ .Values.joal.image }}

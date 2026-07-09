@@ -17,6 +17,16 @@ spec:
       labels:
         app: seerr
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: role
+                    operator: In
+                    values:
+                      - {{ .Values.seerr.nodeRole | default "iliesflix" | quote }}
       # Seerr tourne rootless nativement depuis v3
       securityContext:
         fsGroup: 1000

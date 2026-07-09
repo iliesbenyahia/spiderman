@@ -19,6 +19,16 @@ spec:
       labels:
         app: bazarr
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: role
+                    operator: In
+                    values:
+                      - {{ .Values.bazarr.nodeRole | default "iliesflix" | quote }}
       securityContext:
         fsGroup: {{ .Values.global.pgid }}
       containers:

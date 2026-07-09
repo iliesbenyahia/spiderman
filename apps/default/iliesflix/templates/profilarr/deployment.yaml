@@ -19,6 +19,16 @@ spec:
       labels:
         app: profilarr
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: role
+                    operator: In
+                    values:
+                      - {{ .Values.profilarr.nodeRole | default "iliesflix" | quote }}
       containers:
         - name: parser
           image: {{ .Values.profilarr.parserImage }}

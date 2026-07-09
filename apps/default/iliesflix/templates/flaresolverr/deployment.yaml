@@ -19,6 +19,16 @@ spec:
       labels:
         app: flaresolverr
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: role
+                    operator: In
+                    values:
+                      - {{ .Values.flaresolverr.nodeRole | default "iliesflix" | quote }}
       containers:
         - name: flaresolverr
           image: {{ .Values.flaresolverr.image }}
