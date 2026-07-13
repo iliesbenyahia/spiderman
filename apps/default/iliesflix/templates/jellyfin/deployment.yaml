@@ -41,7 +41,7 @@ spec:
             - name: PUID
               value: {{ .Values.global.puid | quote }}
             - name: PGID
-              value: {{ .Values.global.pgid | quote }}
+              value: "991"
             - name: UMASK
               value: {{ .Values.global.umask | quote }}
             - name: TZ
