@@ -1,0 +1,13 @@
+{{- if .Values.maintainerr.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: maintainerr
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: maintainerr
+  ports:
+    - port: 6246
+      targetPort: 6246
+{{- end }}
