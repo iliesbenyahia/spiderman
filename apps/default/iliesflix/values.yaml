@@ -170,6 +170,7 @@ profilarr:
 maintainerr:
   host: "maintainerr.ibenyahia.fr"
   enabled: true
+  configSize: 512Mi
   image: ghcr.io/maintainerr/maintainerr:latest
   resources:
     requests:
