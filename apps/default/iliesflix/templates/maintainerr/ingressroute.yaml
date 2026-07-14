@@ -12,7 +12,7 @@ spec:
       kind: Rule
       services:
         - name: maintainerr
-          port: 8096
+          port: 6246
   tls:
     secretName: iliesflix-tls
 {{- end }}
