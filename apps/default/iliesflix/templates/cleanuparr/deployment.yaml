@@ -1,0 +1,68 @@
+{{- if .Values.cleanuparr.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cleanuparr
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: cleanuparr
+    app.kubernetes.io/part-of: iliesflix
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cleanuparr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: cleanuparr
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: role
+                    operator: In
+                    values:
+                      - {{ .Values.cleanuparr.nodeRole | default "iliesflix" | quote }}
+      securityContext:
+        fsGroup: {{ .Values.global.pgid }}
+      containers:
+        - name: cleanuparr
+          image: {{ .Values.cleanuparr.image }}
+          env:
+            - name: PUID
+              value: 1000
+            - name: PGID
+              value: 1000
+            - name: UMASK
+              value: 022
+            - name: TZ
+              value: {{ .Values.global.timezone | quote }}
+          ports:
+            - containerPort: 11011
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 11011
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          resources: {{- toYaml .Values.cleanuparr.resources | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: nas
+              mountPath: /downloads
+              subPath: torrents
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: cleanuparr-config
+        - name: nas
+          persistentVolumeClaim:
+            claimName: nas-data
+{{- end }}

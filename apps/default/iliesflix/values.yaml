@@ -179,3 +179,16 @@ maintainerr:
     limits:
       cpu: 500m
       memory: 512Mi
+
+cleanuparr:
+  host: "cleanuparr.ibenyahia.fr"
+  enabled: true
+  configSize: 512Mi
+  image: ghcr.io/cleanuparr/cleanuparr:latest
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi

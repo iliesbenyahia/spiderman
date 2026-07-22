@@ -1,0 +1,13 @@
+{{- if .Values.cleanuparr.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: cleanuparr
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: cleanuparr
+  ports:
+    - port: 11011
+      targetPort: 11011
+{{- end }}
