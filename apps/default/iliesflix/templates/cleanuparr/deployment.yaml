@@ -36,11 +36,11 @@ spec:
           image: {{ .Values.cleanuparr.image }}
           env:
             - name: PUID
-              value: 1000
+              value: "1000"
             - name: PGID
-              value: 1000
+              value: "1000"
             - name: UMASK
-              value: 022
+              value: "022"
             - name: TZ
               value: {{ .Values.global.timezone | quote }}
           ports:
