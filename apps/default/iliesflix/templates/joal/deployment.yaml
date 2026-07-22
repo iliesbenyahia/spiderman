@@ -3,55 +3,86 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: joal
-  namespace: {{ .Release.Namespace }}
+  namespace: joal
   labels:
     app: joal
-    app.kubernetes.io/part-of: iliesflix
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: joal
   strategy:
-    type: Recreate
+    type: Recreate   # évite les conflits d'accès au volume ReadWriteOnce
   template:
     metadata:
       labels:
         app: joal
     spec:
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
-                  - key: role
-                    operator: In
-                    values:
-                      - {{ .Values.joal.nodeRole | default "iliesflix" | quote }}
+      initContainers:
+        - name: bootstrap-conf
+          image: alpine:3.20
+          command:
+            - "sh"
+            - "-c"
+            - |
+              set -e
+              if [ -f /data/config.json ]; then
+                echo "config.json déjà présent, on ne touche à rien."
+                exit 0
+              fi
+              apk add --no-cache curl tar jq >/dev/null
+              echo "Récupération de la dernière release JOAL..."
+              URL=$(curl -s https://api.github.com/repos/anthonyraymond/joal/releases/latest \
+                | jq -r '.assets[] | select(.name | test("\\.tar\\.gz$")) | .browser_download_url' \
+                | head -n1)
+              if [ -z "$URL" ]; then
+                echo "Impossible de trouver l'asset tar.gz de la dernière release." >&2
+                exit 1
+              fi
+              echo "Téléchargement: $URL"
+              curl -sL "$URL" -o /tmp/joal-conf.tar.gz
+              mkdir -p /tmp/extracted
+              tar xzf /tmp/joal-conf.tar.gz -C /tmp/extracted
+              cp -rv /tmp/extracted/* /data/
+              echo "Bootstrap terminé."
+          volumeMounts:
+            - name: conf
+              mountPath: /data
       containers:
         - name: joal
-          image: {{ .Values.joal.image }}
+          image: anthonyraymond/joal:2.1.37   # adapte la version au besoin
           args:
             - "--joal-conf=/data"
             - "--spring.main.web-environment=true"
-            - "--server.port=80"
-            - "--joal.ui.path.prefix={{ .Values.joal.uiPathPrefix }}"
-            - "--joal.ui.secret-token=$(JOAL_SECRET_TOKEN)"
+            - "--server.port=8080"
+            - "--joal.ui.path.prefix=$(UI_PATH_PREFIX)"
+            - "--joal.ui.secret-token=$(UI_SECRET_TOKEN)"
           env:
-            - name: JOAL_SECRET_TOKEN
+            - name: UI_PATH_PREFIX
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.joal.tokenSecret }}
-                  key: secret-token
+                  name: joal-secret
+                  key: UI_PATH_PREFIX
+            - name: UI_SECRET_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: joal-secret
+                  key: UI_SECRET_TOKEN
           ports:
-            - containerPort: 80
-          resources: {{- toYaml .Values.joal.resources | nindent 12 }}
+            - containerPort: 8080
+              name: http
           volumeMounts:
-            - name: config
+            - name: conf
               mountPath: /data
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
       volumes:
-        - name: config
+        - name: conf
           persistentVolumeClaim:
             claimName: joal-config
 {{- end }}

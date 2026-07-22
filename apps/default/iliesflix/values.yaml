@@ -129,9 +129,6 @@ joal:
   enabled: true
   image: anthonyraymond/joal:latest
   configSize: 512Mi
-  uiPathPrefix: "secret"
-  # Nom du Secret K8s contenant secret-token (géré via ExternalSecret)
-  tokenSecret: iliesflix-joal
   resources:
     requests:
       cpu: 50m
