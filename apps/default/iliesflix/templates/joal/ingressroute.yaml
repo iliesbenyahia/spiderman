@@ -12,5 +12,5 @@ spec:
       kind: Rule
       services:
         - name: joal
-          port: 80
+          port: 8080
 {{- end }}
