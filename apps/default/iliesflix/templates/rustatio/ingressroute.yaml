@@ -1,16 +1,18 @@
-{{- if .Values.joal.enabled }}
+{{- if .Values.radarr.enabled }}
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: joal
+  name: rustatio
   namespace: {{ .Release.Namespace }}
 spec:
   entryPoints:
     - {{ .Values.ingress.entrypoint }}
   routes:
-    - match: "Host(`{{ .Values.joal.host }}`)"
+    - match: "Host(`{{ .Values.rustatio.host }}`)"
       kind: Rule
       services:
-        - name: joal
-          port: 8080
+        - name: rustatio
+          port: {{ .Values.rustatio.port }}
+  tls:
+    secretName: iliesflix-tls
 {{- end }}

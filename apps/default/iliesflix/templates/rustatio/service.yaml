@@ -1,0 +1,15 @@
+statio service · YAML
+{{- if .Values.rustatio.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: rustatio
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: rustatio
+  ports:
+    - port: {{ .Values.rustatio.port }}
+      targetPort: {{ .Values.rustatio.port }}
+{{- end }}
+ 

@@ -1,8 +1,8 @@
-{{- if .Values.joal.enabled }}
+{{- if .Values.rustatio.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: joal-config
+  name: rustatio-config
   namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
@@ -10,5 +10,6 @@ spec:
   storageClassName: {{ .Values.config.storageClass }}
   resources:
     requests:
-      storage: {{ .Values.joal.configSize }}
+      storage: {{ .Values.rustatio.configSize }}
 {{- end }}
+ 

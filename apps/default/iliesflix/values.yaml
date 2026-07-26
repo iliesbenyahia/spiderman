@@ -189,3 +189,28 @@ cleanuparr:
     limits:
       cpu: 500m
       memory: 512Mi
+
+rustatio:
+  host: "rustatio.ibenyahia.fr"
+  enabled: true
+  image: ghcr.io/takitsu21/rustatio:latest
+  configSize: 512Mi
+  port: 8080
+  # Auth optionnelle pour protéger le web UI/API (recommandé si exposé sur internet)
+  # Crée le secret au préalable :
+  #   kubectl create secret generic rustatio-auth-token \
+  #     --from-literal=AUTH_TOKEN=$(openssl rand -hex 32) -n <namespace>
+  auth:
+    enabled: false
+    secretName: rustatio-auth-token
+  # Watch folder optionnel : lit les .torrent depuis le NAS partagé (sous-dossier "torrents")
+  watchFolder:
+    enabled: false
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+ 
