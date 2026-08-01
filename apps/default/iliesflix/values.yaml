@@ -106,7 +106,7 @@ jellyfin:
       cpu: 500m
       memory: 1Gi
     limits:
-      cpu: 4000m
+      cpu: 4
       memory: 8Gi
   renderGID: 991
 
@@ -139,8 +139,11 @@ joal:
 
 flaresolverr:
   enabled: true
-  image: alexfozor/flaresolverr:pr-1300-experimental
+  image: alexfozor/flaresolverr:latest
   host: "flaresolverr.ibenyahia.fr"
+  port: 8191
+  logLevel: "info"
+  logHtml: "true"
   resources:
     requests:
       cpu: 100m
