@@ -139,7 +139,7 @@ joal:
 
 flaresolverr:
   enabled: true
-  image: alexfozor/flaresolverr:latest
+  image: ghcr.io/flaresolverr/flaresolverr:latest
   host: "flaresolverr.ibenyahia.fr"
   port: 8191
   logLevel: "info"
