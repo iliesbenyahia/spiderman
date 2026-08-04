@@ -1,0 +1,19 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: paperless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paperless
+  template:
+    metadata:
+      labels:
+        app: paperless
+    spec:
+      containers:
+        - name: paperless
+          image: ghcr.io/paperless-ngx/paperless-ngx:latest
+          ports:
+            - containerPort: 8000
