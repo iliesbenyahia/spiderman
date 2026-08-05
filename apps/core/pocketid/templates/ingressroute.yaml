@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pocketid
+  namespace: {{ .Release.Namespace }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: "Host(`auth.ibenyahia.fr`)"
+      kind: Rule
+      services:
+        - name: pocketid
+          port: http
+  tls:
+    secretName: pocketid-tls
