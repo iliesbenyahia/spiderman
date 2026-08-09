@@ -62,7 +62,7 @@ storageClasses:
     # One of "Retain" or "Delete" (default):
     reclaimPolicy: Retain
     parameters:
-      dsm: "nas.lan"
+      dsm: "192.168.1.4"
     # One of "WaitForFirstConsumer" or "Immediate" (default):
     ##volumeBindingMode: Immediate
 
