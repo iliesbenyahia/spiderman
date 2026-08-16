@@ -29,8 +29,8 @@ spec:
                   name: pocketid-secret
                   key: encryption-key
           volumeMounts:
-          - mountPath: /app/data
-            name: pocketid-data
+            - mountPath: /app/data
+              name: data
           readOnly: true            
           livenessProbe:
             exec:
