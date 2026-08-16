@@ -27,7 +27,11 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: pocketid-secret
-                  key: encryption-key            
+                  key: encryption-key
+          volumeMounts:
+          - mountPath: /app/data
+            name: pocketid-data
+          readOnly: true            
           livenessProbe:
             exec:
               command:
@@ -38,3 +42,7 @@ spec:
             timeoutSeconds: 5
             failureThreshold: 2
       restartPolicy: Always
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pocketid-data
