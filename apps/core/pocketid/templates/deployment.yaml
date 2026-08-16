@@ -30,8 +30,7 @@ spec:
                   key: encryption-key
           volumeMounts:
             - mountPath: /app/data
-              name: data
-          readOnly: true            
+              name: data            
           livenessProbe:
             exec:
               command:
