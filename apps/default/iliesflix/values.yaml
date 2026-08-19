@@ -20,7 +20,7 @@ nas:
 
 # StorageClass pour les /config (locale, rapide)
 config:
-  storageClass: longhorn-v2   # remplace par local-path ou openebs si dispo
+  storageClass: longhorn   # remplace par local-path ou openebs si dispo
 
 # -----------------------------------------------------------------------------
 # Services — activer/désactiver et paramétrer chacun
