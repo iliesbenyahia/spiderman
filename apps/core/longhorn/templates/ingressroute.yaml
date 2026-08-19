@@ -10,7 +10,7 @@ spec:
     - match: "Host(`longhorn.ibenyahia.fr`)"
       kind: Rule
       services:
-        - name: longhorn
-          port: 443
+        - name: longhorn-frontend
+          port: http
   tls:
     secretName: longhorn-tls
