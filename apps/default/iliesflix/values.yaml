@@ -15,8 +15,8 @@ ingress:
 
 # StorageClass NFS pour les médias partagés
 nas:
-  storageClass: nfs-client
-  size: 300Gi
+  storageClass: synology-iscsi-storage
+  size: 800Gi
 
 # StorageClass pour les /config (locale, rapide)
 config:
