@@ -63,7 +63,7 @@ spec:
             claimName: jellyfin-config
         - name: nas
           persistentVolumeClaim:
-            claimName: nas-data
+            claimName: iliesflix-data
           volumes:
         - name: dri
           hostPath:

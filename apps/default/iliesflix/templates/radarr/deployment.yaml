@@ -63,5 +63,5 @@ spec:
             claimName: radarr-config
         - name: nas
           persistentVolumeClaim:
-            claimName: nas-data
+            claimName: iliesflix-data
 {{- end }}
