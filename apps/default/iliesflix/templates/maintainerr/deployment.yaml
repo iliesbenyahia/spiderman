@@ -33,10 +33,6 @@ spec:
         - name: maintainerr
           image: {{ .Values.maintainerr.image }}
           env:
-            - name: PUID
-              value: {{ .Values.global.puid | quote }}
-            - name: PGID
-              value: {{ .Values.global.pgid | quote }}
             - name: UMASK
               value: {{ .Values.global.umask | quote }}
             - name: TZ
