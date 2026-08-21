@@ -63,6 +63,9 @@ storageClasses:
     reclaimPolicy: Retain
     parameters:
       dsm: "192.168.1.4"
+      fsType: btrfs
+      formatOptions: '--nodiscard'
+      
     # One of "WaitForFirstConsumer" or "Immediate" (default):
     ##volumeBindingMode: Immediate
 
