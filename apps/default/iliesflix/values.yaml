@@ -126,7 +126,7 @@ seerr:
 
 joal:
   host: "joal.ibenyahia.fr"
-  enabled: true
+  enabled: false
   image: anthonyraymond/joal:latest
   configSize: 512Mi
   resources:
@@ -138,7 +138,7 @@ joal:
       memory: 512Mi
 
 flaresolverr:
-  enabled: true
+  enabled: false
   image: ghcr.io/flaresolverr/flaresolverr:latest
   host: "flaresolverr.ibenyahia.fr"
   port: 8191
