@@ -19,6 +19,10 @@ spec:
       labels:
         app: maintainerr
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -39,10 +43,16 @@ spec:
             - containerPort: 6246
           livenessProbe:
             httpGet:
-              path: /maintainerr/ping
+              path: /api/health/live
               port: 6246
             initialDelaySeconds: 30
             periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /api/health/ready
+              port: 6246
+            initialDelaySeconds: 10
+            periodSeconds: 10
           resources: {{- toYaml .Values.maintainerr.resources | nindent 12 }}
           volumeMounts:
             - name: config
