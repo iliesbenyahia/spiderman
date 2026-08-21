@@ -33,8 +33,6 @@ spec:
         - name: maintainerr
           image: {{ .Values.maintainerr.image }}
           env:
-            - name: UMASK
-              value: {{ .Values.global.umask | quote }}
             - name: TZ
               value: {{ .Values.global.timezone | quote }}
           ports:
