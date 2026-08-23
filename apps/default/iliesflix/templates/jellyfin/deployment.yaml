@@ -53,8 +53,7 @@ spec:
             - name: config
               mountPath: /config
             - name: nas
-              mountPath: /data/media
-              subPath: media
+              mountPath: /data
             - name: dri
               mountPath: /dev/dri/renderD128  
       volumes:
@@ -64,7 +63,6 @@ spec:
         - name: nas
           persistentVolumeClaim:
             claimName: iliesflix-data
-          volumes:
         - name: dri
           hostPath:
             path: /dev/dri/renderD128
