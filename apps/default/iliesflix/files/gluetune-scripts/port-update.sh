@@ -17,3 +17,7 @@ wget -O- -nv --retry-connrefused \
   --post-data \
   "json={\"listen_port\":${PORT},\"current_network_interface\":\"${VPN_INTERFACE}\",\"random_port\":false,\"upnp\":false}" \
   http://127.0.0.1:8080/api/v2/app/setPreferences
+
+echo "Checking qBittorrent preferences..."
+wget -qO- \
+  http://127.0.0.1:8080/api/v2/app/preferences
