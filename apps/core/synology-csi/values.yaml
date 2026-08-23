@@ -60,10 +60,11 @@ storageClasses:
     # One of true or false (default):
     isDefault: true
     # One of "Retain" or "Delete" (default):
-    reclaimPolicy: Delete
+    reclaimPolicy: Retain
     parameters:
       protocol: "nfs"
       dsm: "192.168.1.4"
+      location: '/volume1/k3s'
       mountPermissions: '0755'
     mountOptions:
     - nfsvers=4.1
