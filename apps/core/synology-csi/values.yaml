@@ -63,7 +63,7 @@ storageClasses:
     reclaimPolicy: Retain
     parameters:
       protocol: "nfs"
-      dsm: "192.168.1.1"
+      dsm: "192.168.1.4"
       location: '/volume1'
       mountPermissions: '0755'
     mountOptions:
