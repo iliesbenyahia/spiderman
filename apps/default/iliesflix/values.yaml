@@ -15,7 +15,7 @@ ingress:
 
 # StorageClass NFS pour les médias partagés
 nas:
-  storageClass: synostorage-nfs
+  storageClass: nfs-client
   size: 800Gi
 
 # StorageClass pour les /config (locale, rapide)
