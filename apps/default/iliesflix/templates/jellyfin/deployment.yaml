@@ -54,7 +54,6 @@ spec:
               mountPath: /config
             - name: nas
               mountPath: /data/media
-              subPath: media
             - name: dri
               mountPath: /dev/dri/renderD128  
       volumes:
