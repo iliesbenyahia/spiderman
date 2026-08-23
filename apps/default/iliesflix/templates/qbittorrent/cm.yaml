@@ -4,5 +4,5 @@ metadata:
   name: gluetun-scripts
   namespace: {{ .Release.Namespace }}
 data:
-  port-update.sh: |
-  {{ (.Files.Glob "gluetun-scripts/port-update.sh").AsConfig | indent 2 }}
+  port-update.sh: |-
+  {{ (.Files.Glob "gluetun-scripts/port-update.sh").AsConfig | indent 4 }}
