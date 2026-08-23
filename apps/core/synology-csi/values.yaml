@@ -54,7 +54,7 @@ snapshotter:
   nodeSelector: { }
   tolerations: [ ]
 storageClasses:
-  synology-iscsi-storage:
+  synology-nfs-storage:
     # One of true or false (default):
     ##disabled: false
     # One of true or false (default):
@@ -62,9 +62,12 @@ storageClasses:
     # One of "Retain" or "Delete" (default):
     reclaimPolicy: Retain
     parameters:
-      dsm: "192.168.1.4"
-      fsType: btrfs
-      formatOptions: '--nodiscard'
+      protocol: "nfs"
+      dsm: "192.168.1.1"
+      location: '/volume1'
+      mountPermissions: '0755'
+      mountOptions:
+        - nfsvers=4.1
 
     # One of "WaitForFirstConsumer" or "Immediate" (default):
     ##volumeBindingMode: Immediate
