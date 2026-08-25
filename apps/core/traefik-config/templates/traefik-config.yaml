@@ -18,10 +18,10 @@ spec:
         exposedPort: 25565
         protocol: TCP
       websecure-pub:
-        port: 8443
+        port: 8444
         expose:
           default: true
-        exposedPort: 8443
+        exposedPort: 8444
         protocol: TCP
         tls:
           enabled: true
