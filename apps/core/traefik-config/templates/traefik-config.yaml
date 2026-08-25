@@ -23,8 +23,6 @@ spec:
           default: true
         exposedPort: 8444
         protocol: TCP
-        tls:
-          enabled: true
     ingressRoute:
       dashboard:
         enabled: true
