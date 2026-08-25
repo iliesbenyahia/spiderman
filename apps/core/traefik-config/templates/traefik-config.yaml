@@ -17,7 +17,14 @@ spec:
           default: true
         exposedPort: 25565
         protocol: TCP
-
+      websecure-pub:
+        port: 8443
+        expose:
+          default: true
+        exposedPort: 8443
+        protocol: TCP
+        tls:
+          enabled: true
     ingressRoute:
       dashboard:
         enabled: true
