@@ -7,4 +7,4 @@ appVersion: "v1.20.2"
 dependencies:
 - name: satisfactory-server
   version: 0.1.6
-  repository: "https://josh-nzl.github.io"
+  repository: "https://josh-nzl.github.io/satisfactory-server"

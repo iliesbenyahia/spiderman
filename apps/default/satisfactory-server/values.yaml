@@ -1,5 +1,6 @@
-persistence:
-  config:
-    storageClass: "longhorn"
-  gamefiles:
-    storageClass: "longhorn"
+satisfactory-server:
+  persistence:
+    config:
+      storageClass: "longhorn"
+    gamefiles:
+      storageClass: "longhorn"
