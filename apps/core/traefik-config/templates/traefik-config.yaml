@@ -24,10 +24,10 @@ spec:
         exposedPort: 7777
         protocol: TCP
       sf-game-udp:
-        port: 7777
+        port: 7778          # ← port interne différent pour éviter la collision containerPort
         expose:
           default: true
-        exposedPort: 7777
+        exposedPort: 7777   # ← reste 7777 côté externe/Service
         protocol: UDP
       sf-api:
         port: 8888
