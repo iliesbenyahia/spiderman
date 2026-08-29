@@ -4,5 +4,5 @@ satisfactory-server:
       storageClass: "longhorn"
     gamefiles:
       storageClass: "longhorn"
-    service:
-      type: ClusterIP
+  service:
+    type: ClusterIP
