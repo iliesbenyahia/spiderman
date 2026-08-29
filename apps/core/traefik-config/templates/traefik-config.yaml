@@ -17,19 +17,19 @@ spec:
           default: true
         exposedPort: 25565
         protocol: TCP
-      satisfactory-game-tcp:
+      sf-game-tcp:
         port: 7777
         expose:
           default: true
         exposedPort: 7777
         protocol: TCP
-      satisfactory-game-udp:
+      sf-game-udp:
         port: 7777
         expose:
           default: true
         exposedPort: 7777
         protocol: UDP
-      satisfactory-api:
+      sf-api:
         port: 8888
         expose:
           default: true
