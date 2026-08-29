@@ -4,7 +4,7 @@ metadata:
   name: grafana
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - kind: Rule
       match: Host(`grafana.{{ .Values.domain }}`)
@@ -18,7 +18,7 @@ metadata:
   name: alertmanager
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - kind: Rule
       match: Host(`alertmanager.{{ .Values.domain }}`)
@@ -32,7 +32,7 @@ metadata:
   name: prometheus
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - kind: Rule
       match: Host(`prometheus.{{ .Values.domain }}`)
