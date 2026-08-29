@@ -1,5 +1,5 @@
 apiVersion: traefik.io/v1alpha1
-kind: IngressRouteTCP
+kind: IngressRoute
 metadata:
   name: satisfactory-api-tcp
   namespace: {{ .Release.Namespace }}
@@ -7,10 +7,13 @@ spec:
   entryPoints:
     - sf-api
   routes:
-    - match: HostSNI(`*`)
+    - match: Host(`satisfactory.ibenyahia.fr`)
+      kind: Rule
       services:
         - name: satisfactory-server
           port: 8888
+  tls:
+    secretName: satisfactory-tls
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
