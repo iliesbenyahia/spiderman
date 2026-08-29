@@ -10,7 +10,7 @@ spec:
     - match: HostSNI(`*`)
       services:
         - name: satisfactory-server
-          port: messaging
+          port: 8888
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
@@ -24,7 +24,7 @@ spec:
     - match: HostSNI(`*`)
       services:
         - name: satisfactory-server
-          port: game-tcp
+          port: 7777
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteUDP
@@ -37,4 +37,4 @@ spec:
   routes:
     - services:
         - name: satisfactory-server
-          port: game-udp
+          port: 7777
