@@ -19,7 +19,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   entryPoints:
-    - satisfactory-tcp
+    - sf-game-tcp
   routes:
     - match: HostSNI(`*`)
       services:
@@ -33,7 +33,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   entryPoints:
-    - satisfactory-udp
+    - sf-udp
   routes:
     - services:
         - name: satisfactory-server
