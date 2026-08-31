@@ -27,7 +27,7 @@ spec:
                   - key: role
                     operator: In
                     values:
-                      - {{ .Values.jellyfin.nodeRole | default "iliesflix" | quote }}
+                      - {{ .Values.jellyfin.nodeRole | default "jellyfin" | quote }}
       securityContext:
         fsGroup: {{ .Values.global.pgid }}
         supplementalGroups:

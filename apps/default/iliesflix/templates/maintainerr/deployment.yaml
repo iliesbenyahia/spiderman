@@ -23,16 +23,6 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
-                  - key: role
-                    operator: In
-                    values:
-                      - {{ .Values.maintainerr.nodeRole | default "iliesflix" | quote }}
       containers:
         - name: maintainerr
           image: {{ .Values.maintainerr.image }}
