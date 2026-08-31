@@ -99,9 +99,8 @@ jellyfin:
   host: "jellyfin.ibenyahia.fr"
   enabled: true
   image: ghcr.io/hotio/jellyfin:latest
-  configSize: 5Gi
+  configSize: 10Gi
   gpu: true  # décommenter pour activer intel.com/gpu: 1
-
   renderGID: 991
 
 seerr:
