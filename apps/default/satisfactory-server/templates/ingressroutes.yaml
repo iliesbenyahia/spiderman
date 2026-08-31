@@ -8,7 +8,6 @@ spec:
     - sf-api
   routes:
     - match: HostSNI(`*`)
-      kind: Rule
       services:
         - name: satisfactory-server
           port: 8888
