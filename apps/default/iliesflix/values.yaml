@@ -100,14 +100,8 @@ jellyfin:
   enabled: true
   image: ghcr.io/hotio/jellyfin:latest
   configSize: 5Gi
-  # gpu: true  # décommenter pour activer intel.com/gpu: 1
-  resources:
-    requests:
-      cpu: 500m
-      memory: 1Gi
-    limits:
-      cpu: '4'
-      memory: 8Gi
+  gpu: true  # décommenter pour activer intel.com/gpu: 1
+
   renderGID: 991
 
 seerr:

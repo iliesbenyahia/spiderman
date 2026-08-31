@@ -67,7 +67,6 @@ spec:
           hostPath:
             path: /dev/dri/renderD128
             type: CharDevice
- # et non /dev/dri
 
 
 {{- end }}
