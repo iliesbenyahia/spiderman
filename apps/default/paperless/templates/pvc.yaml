@@ -1,12 +1,51 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: paperless-nas-data
+  name: paperless-media
   namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: {{ .Values.storage.storageClass }}
+  storageClassName: longhorn
   resources:
     requests:
-      storage: {{ .Values.storage.size }}
+      storage: 50Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-data
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-export
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+    - ReadWriteMany    
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-consume
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+    - ReadWriteMany    
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 10Gi
