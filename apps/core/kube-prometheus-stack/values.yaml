@@ -5,6 +5,16 @@ kube-prometheus-stack:
       configSecret: alertmanager-secrets
       secrets:
         - alertmanager-secrets
+  kubeScheduler:
+    enabled: false
+  kubeProxy:
+    enabled: false
+  defaultRules:
+    disabled:
+      KubeProxyDown: true
+      KubeSchedulerDown: true 
+    rules:
+      kubeControllerManager: false
     
   grafana:
     admin:
