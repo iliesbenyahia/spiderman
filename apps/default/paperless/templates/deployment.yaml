@@ -31,6 +31,9 @@ spec:
               value: "redis://broker:6379"
             - name: PAPERLESS_DBENGINE
               value: "sqlite"
+          envFrom:
+            - secretRef:
+                name: paperless-secret
       volumes:
         - name: data
           persistentVolumeClaim:
