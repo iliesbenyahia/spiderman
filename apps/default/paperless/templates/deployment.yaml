@@ -31,6 +31,10 @@ spec:
               value: "redis://broker:6379"
             - name: PAPERLESS_DBENGINE
               value: "sqlite"
+            - name: PAPERLESS_URL
+              value: "https://paperless.ibenyahia.fr"
+            - name: PAPERLESS_CSRF_TRUSTED_ORIGINS
+              value: "https://paperless.ibenyahia.fr"
           envFrom:
             - secretRef:
                 name: paperless-secret
