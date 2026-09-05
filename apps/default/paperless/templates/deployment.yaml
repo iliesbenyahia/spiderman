@@ -18,13 +18,13 @@ spec:
           ports:
             - containerPort: 8000
           volumeMounts:
-            - name: paperless-data
+            - name: data
               mountPath: /usr/src/paperless/data
-            - name: paperless-media
+            - name: media
               mountPath: /usr/src/paperless/media
             - name: export
               mountPath: /usr/src/paperless/export
-            - name: paperless-consume
+            - name: consume
               mountPath: /usr/src/paperless/consume
           env:
             - name: PAPERLESS_REDIS
