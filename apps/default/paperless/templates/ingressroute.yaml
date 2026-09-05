@@ -10,7 +10,7 @@ spec:
     - match: "Host(`paperless.ibenyahia.fr`)"
       kind: Rule
       services:
-        - name: paperless
+        - name: paperless-svc
           port: 8000
   tls:
     secretName: paperless-tls
