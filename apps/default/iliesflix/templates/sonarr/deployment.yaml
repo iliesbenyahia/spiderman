@@ -19,16 +19,6 @@ spec:
       labels:
         app: sonarr
     spec:
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
-                  - key: role
-                    operator: In
-                    values:
-                      - {{ .Values.sonarr.nodeRole | default "iliesflix" | quote }}
       securityContext:
         fsGroup: {{ .Values.global.pgid }}
       containers:
@@ -63,5 +53,5 @@ spec:
             claimName: sonarr-config
         - name: nas
           persistentVolumeClaim:
-            claimName: nas-data
+            claimName: iliesflix-data
 {{- end }}

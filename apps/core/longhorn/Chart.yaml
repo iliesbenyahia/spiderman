@@ -1,0 +1,10 @@
+apiVersion: v2
+name: longhorn
+description: My personnal helm chart for longhorn
+type: application
+version: 0.1.0
+appVersion: "v2"
+dependencies:
+- name: longhorn
+  version: "1.12.1"
+  repository: "https://charts.longhorn.io"

@@ -1,0 +1,10 @@
+apiVersion: v2
+name: satisfactory-server
+description: My personnal helm chart for satisfactory
+type: application
+version: 0.1.6
+appVersion: "v1.20.2"
+dependencies:
+- name: satisfactory-server
+  version: 0.1.6
+  repository: "https://josh-nzl.github.io/satisfactory-server"

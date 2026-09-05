@@ -1,0 +1,50 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    logs:
+      general:
+        level: DEBUG
+      access:
+        enabled: true
+    ports: 
+      minecraft:
+        port: 25565
+        expose:
+          default: true
+        exposedPort: 25565
+        protocol: TCP
+      sf-game-tcp:
+        port: 7777
+        expose:
+          default: true
+        exposedPort: 7777
+        protocol: TCP
+      sf-udp:
+        port: 7778          # ← port interne différent pour éviter la collision containerPort
+        expose:
+          default: true
+        exposedPort: 7777   # ← reste 7777 côté externe/Service
+        protocol: UDP
+      sf-api:
+        port: 8888
+        expose:
+          default: true
+        exposedPort: 8888
+        protocol: TCP
+      websecure-pub:
+        port: 8444
+        expose:
+          default: true
+        exposedPort: 8444
+        protocol: TCP
+    ingressRoute:
+      dashboard:
+        enabled: true
+        matchRule: Host(`traefik.ibenyahia.fr`)
+        entryPoints: 
+          - web
+          - websecure

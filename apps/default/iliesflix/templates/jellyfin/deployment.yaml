@@ -27,7 +27,7 @@ spec:
                   - key: role
                     operator: In
                     values:
-                      - {{ .Values.jellyfin.nodeRole | default "iliesflix" | quote }}
+                      - {{ .Values.jellyfin.nodeRole | default "jellyfin" | quote }}
       securityContext:
         fsGroup: {{ .Values.global.pgid }}
         supplementalGroups:
@@ -53,8 +53,7 @@ spec:
             - name: config
               mountPath: /config
             - name: nas
-              mountPath: /data/media
-              subPath: media
+              mountPath: /data
             - name: dri
               mountPath: /dev/dri/renderD128  
       volumes:
@@ -63,13 +62,11 @@ spec:
             claimName: jellyfin-config
         - name: nas
           persistentVolumeClaim:
-            claimName: nas-data
-          volumes:
+            claimName: iliesflix-data
         - name: dri
           hostPath:
             path: /dev/dri/renderD128
             type: CharDevice
- # et non /dev/dri
 
 
 {{- end }}

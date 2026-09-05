@@ -1,0 +1,23 @@
+domain: ibenyahia.fr
+kube-prometheus-stack:
+  alertmanager:
+    alertmanagerSpec:
+      configSecret: alertmanager-secrets
+      secrets:
+        - alertmanager-secrets
+  kubeScheduler:
+    enabled: false
+  kubeProxy:
+    enabled: false
+  defaultRules:
+    disabled:
+      KubeProxyDown: true
+      KubeSchedulerDown: true 
+    rules:
+      kubeControllerManager: false
+    
+  grafana:
+    admin:
+      existingSecret: "grafana-admin-creds"
+      userKey: "grafana-admin-login"
+      passwordKey: "grafana-admin-password"

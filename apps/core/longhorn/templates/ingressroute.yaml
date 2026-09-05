@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: longhorn
+  namespace: {{ .Release.Namespace }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: "Host(`longhorn.ibenyahia.fr`)"
+      kind: Rule
+      services:
+        - name: longhorn-frontend
+          port: http
+  tls:
+    secretName: longhorn-tls

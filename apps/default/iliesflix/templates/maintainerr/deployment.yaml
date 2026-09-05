@@ -19,36 +19,30 @@ spec:
       labels:
         app: maintainerr
     spec:
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
-                  - key: role
-                    operator: In
-                    values:
-                      - {{ .Values.maintainerr.nodeRole | default "iliesflix" | quote }}
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
         - name: maintainerr
           image: {{ .Values.maintainerr.image }}
           env:
-            - name: PUID
-              value: {{ .Values.global.puid | quote }}
-            - name: PGID
-              value: {{ .Values.global.pgid | quote }}
-            - name: UMASK
-              value: {{ .Values.global.umask | quote }}
             - name: TZ
               value: {{ .Values.global.timezone | quote }}
           ports:
             - containerPort: 6246
           livenessProbe:
             httpGet:
-              path: /maintainerr/ping
+              path: /api/health/live
               port: 6246
             initialDelaySeconds: 30
             periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /api/health/ready
+              port: 6246
+            initialDelaySeconds: 10
+            periodSeconds: 10
           resources: {{- toYaml .Values.maintainerr.resources | nindent 12 }}
           volumeMounts:
             - name: config

@@ -16,11 +16,11 @@ ingress:
 # StorageClass NFS pour les médias partagés
 nas:
   storageClass: nfs-client
-  size: 300Gi
+  size: 800Gi
 
 # StorageClass pour les /config (locale, rapide)
 config:
-  storageClass: local-path   # remplace par local-path ou openebs si dispo
+  storageClass: longhorn   # remplace par local-path ou openebs si dispo
 
 # -----------------------------------------------------------------------------
 # Services — activer/désactiver et paramétrer chacun
@@ -99,15 +99,8 @@ jellyfin:
   host: "jellyfin.ibenyahia.fr"
   enabled: true
   image: ghcr.io/hotio/jellyfin:latest
-  configSize: 5Gi
-  # gpu: true  # décommenter pour activer intel.com/gpu: 1
-  resources:
-    requests:
-      cpu: 500m
-      memory: 1Gi
-    limits:
-      cpu: 4
-      memory: 8Gi
+  configSize: 10Gi
+  gpu: true  # décommenter pour activer intel.com/gpu: 1
   renderGID: 991
 
 seerr:
@@ -126,7 +119,7 @@ seerr:
 
 joal:
   host: "joal.ibenyahia.fr"
-  enabled: true
+  enabled: false
   image: anthonyraymond/joal:latest
   configSize: 512Mi
   resources:
@@ -138,7 +131,7 @@ joal:
       memory: 512Mi
 
 flaresolverr:
-  enabled: true
+  enabled: false
   image: ghcr.io/flaresolverr/flaresolverr:latest
   host: "flaresolverr.ibenyahia.fr"
   port: 8191

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pocketid
+  labels:
+    app: pocketid
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pocketid
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: pocketid
+    spec:
+      containers:
+        - name: pocketid
+          image:  pocketid/pocket-id:v2
+          ports:
+            - containerPort: 1411
+              name: http
+          env:
+            - name: APP_URL
+              value: https://auth.ibenyahia.fr
+            - name: ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pocketid-secret
+                  key: encryption-key
+          volumeMounts:
+            - mountPath: /app/data
+              name: data            
+          livenessProbe:
+            exec:
+              command:
+                - /app/pocket-id
+                - healthcheck
+            initialDelaySeconds: 10
+            periodSeconds: 60
+            timeoutSeconds: 5
+            failureThreshold: 2
+      restartPolicy: Always
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pocketid-data
