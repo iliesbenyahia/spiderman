@@ -6,6 +6,7 @@ metadata:
 spec:
   entryPoints:
     - websecure
+    - websecure-pub
   routes:
     - match: "Host(`paperless.ibenyahia.fr`)"
       kind: Rule
