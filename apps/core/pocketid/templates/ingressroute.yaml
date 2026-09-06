@@ -6,9 +6,10 @@ metadata:
 spec:
   entryPoints:
     - websecure
+    - websecure-pub 
   routes:
     - match: "Host(`auth.ibenyahia.fr`)"
-      kind: Rule
+      kind: Rule 
       services:
         - name: pocketid
           port: http
