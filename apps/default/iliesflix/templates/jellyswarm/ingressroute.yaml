@@ -1,13 +1,13 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: jellyfin-pub
+  name: jellyswarm-pub
   namespace: {{ .Release.Namespace }}
 spec:
   entryPoints:
     - websecure-pub
   routes:
-    - match: "Host(`jellywarm.ibenyahia.fr`)"
+    - match: "Host(`jellyswarm.ibenyahia.fr`)"
       kind: Rule
       services:
         - name: jellyswarm
